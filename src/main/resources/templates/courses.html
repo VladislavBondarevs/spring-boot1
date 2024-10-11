@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Courses</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #c3a060, #84eccb);
+        }
+
+        .container {
+            background: linear-gradient(to right, #c3a060, #84eccb);
+            width: 600px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #5e057e;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        li {
+            background-color: #eaeaea;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input, select {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: #fff;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140" width="10" height="10"><polygon points="0,0 140,0 70,70" style="fill:%235e057e;"></polygon></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 12px;
+        }
+
+        button {
+            background-color: #5e057e;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #299d00;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #888;
+            font-size: 14px;
+        }
+        .span-text {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .logout-link {
+            color: #5e057e;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Courses</h1>
+    <ul>
+        <li th:each="course : ${courses}">
+            <div class="course-info">
+            </div>
+        </li>
+    </ul>
+
+    <form th:action="@{/add-course}" method="post">
+        <select id="courseSelect" name="Course" required onchange="navigateToCourse()">
+            <option value="">Select Course</option>
+            <option value="https://www.codecademy.com/learn/learn-java">Java</option>
+            <option value="https://spring.io/projects/spring-boot">Spring Boot</option>
+            <option value="https://docs.microsoft.com/en-us/sql/sql-server">MS SQL</option>
+            <option value="https://kubernetes.io/">Kubernetes</option>
+        </select>
+    </form>
+
+    <script>
+        function navigateToCourse() {
+            const selectElement = document.getElementById('courseSelect');
+            const selectedValue = selectElement.value;
+
+            if (selectedValue) {
+                window.location.href = selectedValue;
+            }
+        }
+    </script>
+        <div class="span-text">
+            <span th:authorize="isAuthenticated">
+                <a th:href="@{/home}" class="logout-link">Zurück zum Menü</a>
+            </span>
+        </div>
+</div>
+</body>
+</html>
