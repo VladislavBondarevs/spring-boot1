@@ -101,13 +101,6 @@
             <option value="Nicht notwendig" th:selected="*{status == 'Nicht notwendig'}">Nicht notwendig</option>
             <option value="Beendet" th:selected="*{status == 'Beendet'}">Beendet</option>
         </select>
-
-        <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate" name="startDate" th:field="*{startDate}" required />
-
-        <label for="endDate">End Date:</label>
-        <input type="date" id="endDate" name="endDate" th:field="*{endDate}" />
-
         <button type="submit">Save Changes</button>
         <a th:href="@{/view-reports}">Cancel</a>
     </form>
