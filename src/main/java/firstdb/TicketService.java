@@ -1,6 +1,7 @@
 package firstdb;
 
 
+
 import java.util.List;
 
 public interface TicketService {
@@ -8,4 +9,5 @@ public interface TicketService {
     Ticket getTicketById(Long id);
     void saveTicket(Ticket ticket);
     void deleteTicketById(Long id);
+
 }

@@ -50,9 +50,7 @@ public class UserServiceTest {
         assertEquals("email@example.com", createdUser.getEmail());
         assertEquals("USER", createdUser.getRole());
 
-
         verify(userRepository, times(1)).deleteById(userId);
-
 
         when(userRepository.existsById(userId)).thenReturn(false);
         boolean exists = userRepository.existsById(userId);

@@ -3,19 +3,14 @@ package firstdb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class TicketServiceImpl implements TicketService {
 
-
-    private final TicketRepository ticketRepository;
-
     @Autowired
-    public TicketServiceImpl(TicketRepository ticketRepository) {
-        super();
-        this.ticketRepository = ticketRepository;
-    }
+    private TicketRepository ticketRepository;
 
     @Override
     public List<Ticket> getAllTickets() {
@@ -36,5 +31,4 @@ public class TicketServiceImpl implements TicketService {
     public void deleteTicketById(Long id) {
         ticketRepository.deleteById(id);
     }
-
 }
