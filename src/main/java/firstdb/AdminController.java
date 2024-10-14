@@ -2,7 +2,6 @@ package firstdb;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,21 +12,20 @@ import java.util.List;
 
 @Controller
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class AdminController {
 
     private final UserService userService;
     private final UserRepository userRepository;
     private final UserServiceImpl userServiceImpl;
     private final TicketService ticketService;
-    private final TicketRepository ticketRepository;
+
     @Autowired
-    public AdminController(TicketRepository ticketRepository,UserService userService, UserServiceImpl userServiceImpl, UserRepository userRepository,TicketService ticketService) {
+    public AdminController(UserService userService, UserServiceImpl userServiceImpl, UserRepository userRepository,TicketService ticketService) {
         this.userService = userService;
         this.userServiceImpl = userServiceImpl;
         this.userRepository = userRepository;
         this.ticketService = ticketService;
-        this.ticketRepository = ticketRepository;
+
     }
     //Dashboard
     @GetMapping("/admin_dashboard")
