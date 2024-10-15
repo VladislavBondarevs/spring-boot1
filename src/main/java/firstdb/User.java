@@ -23,6 +23,7 @@ public class User {
     private String email;
     private String role;
 
+
     public User(String username, String password, String fullname, String email, String role) {
         super();
         this.username = username;
@@ -35,6 +36,7 @@ public class User {
     public User() {
 
     }
+
 
     @Override
     public String toString() {

@@ -1,6 +1,5 @@
 package firstdb;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -40,4 +39,24 @@ public class UserDaoImpl implements UserDao {
     public Optional<User> getUserById(Long userId) {
         return userRepository.findById(userId);
     }
+    @Override
+    public void updateUser(User user) {
+        User existingUser = userRepository.findById(user.getId()).orElseThrow(() -> new UserNotFoundException(user.getId()));
+        String currentPassword = existingUser.getPassword();
+        if (user.getFullname() != null) {
+            existingUser.setFullname(user.getFullname());
+        }
+        if (user.getEmail() != null) {
+            existingUser.setEmail(user.getEmail());
+        }
+        if (user.getRole() != null) {
+            existingUser.setRole(user.getRole());
+        }
+        if (user.getPassword() != null) {
+            existingUser.setPassword(user.getPassword());
+        }
+        userRepository.save(existingUser);
+    }
+
+
 }

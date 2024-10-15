@@ -3,6 +3,7 @@ package firstdb;
 import java.security.Principal;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -19,8 +21,8 @@ public class UserController {
 
     @Autowired
     private UserDetailsService userDetailsService;
-    private TicketService ticketService;
-    private UserService userService;
+    private final TicketService ticketService;
+    private final UserService userService;
 
     public UserController(UserService userService, TicketService ticketService, UserDetailsService userDetailsService) {
         this.userService = userService;
@@ -51,11 +53,27 @@ public class UserController {
 
     @PostMapping("/register")
     public String registerSava(@ModelAttribute("user") UserDto userDto, Model model) {
-        User user = userService.findByUsername(userDto.getUsername());
+        String username = userDto.getUsername().trim();
+        String fullName = userDto.getFullname().trim();
+
+        if (username.isEmpty()) {
+            model.addAttribute("usernameError", "Username cannot be empty or contain only spaces");
+            return "register";
+        }if (fullName.isEmpty()) {
+            model.addAttribute("fullnameError", "fullname cannot be empty or contain only spaces");
+            return "register";
+        }
+
+        User user = userService.findByUsername(username);
         if (user != null) {
             model.addAttribute("Userexist", user);
             return "register";
         }
+        if ("ADMIN".equalsIgnoreCase(userDto.getRole())) {
+            model.addAttribute("roleError", "You cannot assign yourself as ADMIN");
+            return "register";
+        }
+
         userService.save(userDto);
         return "redirect:/register?success";
     }

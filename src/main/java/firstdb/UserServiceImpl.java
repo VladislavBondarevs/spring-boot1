@@ -35,11 +35,6 @@ public class UserServiceImpl implements UserService {
         return userDao.getAllUsers();
     }
 
-    @Override
-    public void assignRole(User user, String role) {
-        user.setRole(role);
-        userDao.save(user);
-    }
 
     @Override
     public void deleteUserById(Long id) {
@@ -55,6 +50,7 @@ public class UserServiceImpl implements UserService {
     public Optional<User> getUserById(Long userId) {
         return userDao.getUserById(userId);
     }
+
 }
 
 
