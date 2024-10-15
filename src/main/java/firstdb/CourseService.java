@@ -15,15 +15,8 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
-    public Course getCourseById(Long id) {
-        return courseRepository.findById(id).orElse(null);
-    }
-
     public Course saveCourse(Course course) {
         return courseRepository.save(course);
     }
 
-    public void deleteCourse(Long id) {
-        courseRepository.deleteById(id);
-    }
 }
