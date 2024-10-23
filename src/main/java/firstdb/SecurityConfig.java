@@ -29,8 +29,11 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/register", "/login", "/home", "/settings", "/manage-users", "/view-reports", "/courses").permitAll()
-                        .requestMatchers("/admin/**", "/admin_dashboard").hasRole("ADMIN")
+                        .requestMatchers("/register", "/login", "/home", "/settings",
+                                "/manage-users", "/view-reports", "/courses","/schedule",
+                                "/calendar_view","/schedule","/calendar_view").permitAll()
+                        .requestMatchers("/admin/**", "/admin_dashboard","/schedule", "/schedule/**",
+                                "/update_schedule","/update_schedule/**","/delete-schedule/**").hasRole("ADMIN")
                         .requestMatchers("/dashboard").authenticated()
                         .anyRequest().authenticated()
                 )

@@ -19,7 +19,7 @@
 
     .container {
       width: 100%;
-      max-width: 800px;
+      max-width: 1000px;
       background-color: #fff;
       padding: 30px;
       border-radius: 12px;
@@ -132,6 +132,7 @@
       <th>Full Name</th>
       <th>Email</th>
       <th>Role</th>
+      <th>Telefonnummer</th>
       <th>Edit</th>
       <th>Delete</th>
     </tr>
@@ -143,6 +144,7 @@
       <td th:text="${user.fullname}"></td>
       <td th:text="${user.email}"></td>
       <td th:text="${user.role}"></td>
+      <td th:text="${user.phonenumber}"></td>
       <td><a th:href="@{'/edit-user/' + ${user.id}}">Edit</a></td>
       <td><a th:href="@{'/delete-user/' + ${user.id}}" onclick="return
       confirm('Are you sure you want to delete this user?');">Delete</a></td>

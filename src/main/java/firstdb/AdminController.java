@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -18,14 +19,15 @@ public class AdminController {
     private final UserRepository userRepository;
     private final UserServiceImpl userServiceImpl;
     private final TicketService ticketService;
+    private final DutyScheduleService scheduleService;
 
     @Autowired
-    public AdminController(UserService userService, UserServiceImpl userServiceImpl, UserRepository userRepository,TicketService ticketService) {
+    public AdminController(DutyScheduleService scheduleService,UserService userService, UserServiceImpl userServiceImpl, UserRepository userRepository,TicketService ticketService) {
         this.userService = userService;
         this.userServiceImpl = userServiceImpl;
         this.userRepository = userRepository;
         this.ticketService = ticketService;
-
+        this.scheduleService = scheduleService;
     }
     //Dashboard
     @GetMapping("/admin_dashboard")
@@ -42,10 +44,17 @@ public class AdminController {
 
     //Manage Users
     @GetMapping("/delete-user/{id}")
-    public String deleteUser(@PathVariable Long id) {
-        userService.deleteUserById(id);
+    public String deleteUser(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            userService.deleteUserAndDependencies(id);
+            redirectAttributes.addFlashAttribute("successMessage", "User successfully deleted along with their duties.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "An error occurred while deleting the user.");
+            e.printStackTrace();
+        }
         return "redirect:/manage-users";
     }
+
     @PostMapping("/manage_users")
     public String addUser(@ModelAttribute("user") UserDto userDto) {
         userService.save(userDto);
@@ -98,4 +107,5 @@ public class AdminController {
         ticketService.saveTicket(updatedTicket);
         return "redirect:/view-reports";
     }
+
 }

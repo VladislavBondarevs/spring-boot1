@@ -13,7 +13,9 @@ public interface UserService {
 
     boolean hasRole(User user, String role);
     Optional<User> getUserById(Long userId);
-
+    void deleteUserAndDependencies(Long userId);
 
     void deleteUserById(Long id);
+    User findById(Long id);
+
 }
