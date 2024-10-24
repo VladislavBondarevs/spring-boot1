@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
   <meta charset="UTF-8">
@@ -78,8 +78,7 @@
   <a th:href="@{/manage-users}" class="btn">Manage Users</a>
   <a th:href="@{/schedule}" class="btn">Schedule</a>
   <a th:href="@{/view-reports}" class="btn">View Reports</a>
-  <a th:href="@{/settings}" class="btn">Settings</a>
-
+  <a th:href="@{/home}" class="btn" sec:authorize="hasRole('ADMIN')">Back</a>
   <div class="logout-section" style="margin-top: 20px;">
     <a th:href="@{/logout}" class="logout-link">Logout</a>
   </div>

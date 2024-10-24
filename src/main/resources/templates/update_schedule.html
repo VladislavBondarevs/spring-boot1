@@ -117,7 +117,7 @@
     <form th:action="@{'/update_schedule/' + ${schedule.id}}" method="post" th:object="${schedule}">
         <label for="dutyType">Duty Type</label>
         <select th:field="*{dutyType}" id="dutyType" class="duty-select" required>
-            <option value="Kitchen Duty">Kitchen Duty</option>
+            <option value="Küche">Kitchen Duty</option>
             <option value="Abwesend">Abwesend</option>
         </select>
 
